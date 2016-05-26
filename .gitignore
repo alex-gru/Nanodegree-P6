@@ -30,6 +30,7 @@ project.properties
 # Eclipse project files
 .classpath
 .project
+/gradle.properties
 
 # idea project files
 .idea/
