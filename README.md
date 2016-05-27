@@ -15,8 +15,7 @@ Based on a mockup provided, a watchface for an Android Watch is designed. The co
 The watchface is designed for both round and square watches. Every Android Wear device operates in two modes, "active" and "ambient". Whenever the user touches the watch face, the watch changes to "active". In this mode, the full design is shown and the screen is redrawn with a high framerate. Ambient mode is automatically started after some seconds, if the user does not actively use the device.
 In this mode it is important to use low-bit designs to prevent potential display burn-ins with some display technologies. So in the case of "Sunshine", the weather icon, which has large areas of color, is hidden in ambient mode. 
 
-<table border="0">
-<tr>
+<table>
   <td>
     <img style="position: center;" src="https://github.com/alex-gru/Nanodegree-P6/blob/master/static/screenshots/P6 - Go Ubiquitous_phone_1_framed.png" width="300">
   </td>
