@@ -13,7 +13,7 @@ In this project, the famous "Sunshine" weather app, which is the result of the s
 Based on a mockup provided, a watchface for an Android Watch is designed. The communication between handheld and wearable is realized, by using a WearableListenerService. The GoogleApiClient provides listener on both sides to react to data transfers. For transmitting data, so called "data items" are used, which are delivery-guaranteed data chunks.
 
 The watchface is designed for both round and square watches. Every Android Wear device operates in two modes, "active" and "ambient". Whenever the user touches the watch face, the watch changes to "active". In this mode, the full design is shown and the screen is redrawn with a high framerate. Ambient mode is automatically started after some seconds, if the user does not actively use the device.
-In this mode it is important to use low-bit designs to prevent potential display burn-ins with some display technologies. So in the case of "Sunshine", the weather icon, which has large areas of color, is hidden in ambient mode. 
+In this mode the screen is redrawn only once per minute and it is important to use low-bit designs to prevent potential display burn-ins with some display technologies. So in the case of "Sunshine", the weather icon, which has large areas of color, is hidden in ambient mode. 
 
 <table>
   <td>
