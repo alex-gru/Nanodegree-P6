@@ -1,6 +1,6 @@
 **[← back to project list](https://github.com/alex-gru/android_dev_nanodegree_udacity/blob/master/README.md)**
 
-##P6 -Go Ubiquitous <img style="position: center;" src="https://github.com/alex-gru/Nanodegree-P6/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="50"> 
+##P6 - Go Ubiquitous <img style="position: center;" src="https://github.com/alex-gru/Nanodegree-P6/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="50"> 
 
 ***Included Udacity course: [Android Ubiquitous Computing](https://www.udacity.com/course/android-ubiquitous-computing--ud875-nd)***
 
