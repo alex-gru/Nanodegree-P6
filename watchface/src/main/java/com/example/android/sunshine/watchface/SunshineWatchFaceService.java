@@ -355,12 +355,13 @@ public class SunshineWatchFaceService extends CanvasWatchFaceService {
                             bounds.height() / 2 + mYDividerOffsetToCenter + mDividerThickness),
                     6, 6, mDividerPaint);
 
-            int weatherIconDrawableId = getArtResourceForWeatherCondition(
-                    WEATHER_ID_DATA > 0 ? WEATHER_ID_DATA : 500);
-            Bitmap weatherIconBitmap = BitmapFactory.decodeResource(getResources(),
-                    weatherIconDrawableId);
-            x = 0;
-            canvas.drawBitmap(weatherIconBitmap,bounds.width()/2 - mXWeatherIconPaintOffset,mYWeatherIconOffset,mWeatherIconPaint);
+            if (!isInAmbientMode()) {
+                int weatherIconDrawableId = getArtResourceForWeatherCondition(
+                        WEATHER_ID_DATA > 0 ? WEATHER_ID_DATA : 500);
+                Bitmap weatherIconBitmap = BitmapFactory.decodeResource(getResources(),
+                        weatherIconDrawableId);
+                canvas.drawBitmap(weatherIconBitmap,bounds.width()/2 - mXWeatherIconPaintOffset,mYWeatherIconOffset,mWeatherIconPaint);
+            }
 
             String highTemp = String.valueOf(HIGH_TEMP_DATA);
             canvas.drawText(highTemp, bounds.width()/2 - mWeatherHighTemp.measureText(highTemp)/3, mYWeatherOffset, mWeatherHighTemp);
@@ -418,6 +419,8 @@ public class SunshineWatchFaceService extends CanvasWatchFaceService {
     public static int getArtResourceForWeatherCondition(int weatherId) {
         // Based on weather code data found at:
         // http://bugs.openweathermap.org/projects/api/wiki/Weather_Condition_Codes
+
+        Log.d(TAG, "get drawable from weather id:" + weatherId);
         if (weatherId >= 200 && weatherId <= 232) {
             return R.drawable.ic_storm;
         } else if (weatherId >= 300 && weatherId <= 321) {

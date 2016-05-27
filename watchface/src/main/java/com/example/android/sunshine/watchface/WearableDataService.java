@@ -102,6 +102,7 @@ public class WearableDataService extends WearableListenerService implements
             SunshineWatchFaceService.HIGH_TEMP_DATA = dataMap.getString("HIGH");
             SunshineWatchFaceService.LOW_TEMP_DATA = dataMap.getString("LOW");
             SunshineWatchFaceService.WEATHER_ID_DATA = dataMap.getInt("WEATHER_ID_DATA");
+            Log.d(SunshineWatchFaceService.TAG, "new weather id:" + SunshineWatchFaceService.WEATHER_ID_DATA);
         }
     }
 

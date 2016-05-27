@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
                PutDataMapRequest putDataMapReq = PutDataMapRequest.create(DATA_PATH);
                putDataMapReq.getDataMap().putString("LOW", LOW_TEMP_DATA);
                putDataMapReq.getDataMap().putString("HIGH", HIGH_TEMP_DATA);
-               putDataMapReq.getDataMap().putLong("WEATHER_ID_DATA", WEATHER_ID_DATA);
+               putDataMapReq.getDataMap().putInt("WEATHER_ID_DATA", WEATHER_ID_DATA);
                putDataMapReq.getDataMap().putLong("ts", System.currentTimeMillis());
                PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
 
