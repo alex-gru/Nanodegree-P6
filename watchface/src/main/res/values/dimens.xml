@@ -9,8 +9,8 @@
     <dimen name="weather_icon_x_offset">60dp</dimen>
     <dimen name="clock_y_offset">70dp</dimen>
     <dimen name="date_y_offset">100dp</dimen>
-    <dimen name="weather_y_offset">160dp</dimen>
-    <dimen name="weather_icon_y_offset">130dp</dimen>
+    <dimen name="weather_y_offset">150dp</dimen>
+    <dimen name="weather_icon_y_offset">125dp</dimen>
     <dimen name="divider_y_offset_to_center">15dp</dimen>
     <dimen name="divider_length">50dp</dimen>
     <dimen name="divider_thickness">1dp</dimen>
