@@ -1,52 +1,36 @@
-Advanced Android Sample App
-===================================
+**[← back to project list](https://github.com/alex-gru/android_dev_nanodegree_udacity/blob/master/README.md)**
 
-Synchronizes weather information from OpenWeatherMap on Android Phones and Tablets. Used in the Udacity Advanced Android course.
+##P6 -Go Ubiquitous <img style="position: center;" src="https://github.com/alex-gru/Nanodegree-P6/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" width="50"> 
 
-Pre-requisites
---------------
-Android SDK 21 or Higher
-Build Tools version 21.1.2
-Android Support AppCompat 22.2.0
-Android Support Annotations 22.2.0
-Android Support GridLayout 22.2.0
-Android Support CardView 22.2.0
-Android Support Design 22.2.0
-Android Support RecyclerView 22.2.0
-Google Play Services GCM 7.0.0
-BumpTech Glide 3.5.2
+***Included Udacity course: [Android Ubiquitous Computing](https://www.udacity.com/course/android-ubiquitous-computing--ud875-nd)***
 
+We live in a world, where everything gets more and more connected. Since it's beginning around 2008, Android has evolved to the generation of "Internet Of Things". It all started with traditional handheld phones, then tablets, Android TVs, Google Cast/Chromecast, even cars are armed with Android Auto, and last but not least, Android Wear. 
 
-Getting Started
----------------
-This sample uses the Gradle build system.  To build this project, use the
-"gradlew build" command or use "Import Project" in Android Studio.
+Android Wear feels, from the developer's perspective, almost the same as developing for a "standard" handheld device. The interesting part is the communication between the handheld and the wearable device. 
 
-Support
--------
+In this project, the famous "Sunshine" weather app, which is the result of the supporting courses [Developing Android Apps](https://www.udacity.com/course/developing-android-apps--ud853), [Advanced Android App Development](https://www.udacity.com/course/advanced-android-app-development--ud855), should be extended to integrate Wear functionality. 
 
-- Google+ Community: https://plus.google.com/communities/105153134372062985968
-- Stack Overflow: http://stackoverflow.com/questions/tagged/android
+Based on a mockup provided, a watchface for an Android Watch is designed. The communication between handheld and wearable is realized, by using a WearableListenerService. The GoogleApiClient provides listener on both sides to react to data transfers. For transmitting data, so called "data items" are used, which are delivery-guaranteed data chunks.
 
-Patches are encouraged, and may be submitted by forking this project and
-submitting a pull request through GitHub. Please see CONTRIBUTING.md for more details.
+The watchface is designed for both round and square watches. Every Android Wear device operates in two modes, "active" and "ambient". Whenever the user touches the watch face, the watch changes to "active". In this mode, the full design is shown and the screen is redrawn with a high framerate. Ambient mode is automatically started after some seconds, if the user does not actively use the device.
+In this mode it is important to use low-bit designs to prevent potential display burn-ins with some display technologies. So in the case of "Sunshine", the weather icon, which has large areas of color, is hidden in ambient mode. 
 
-License
--------
-Copyright 2015 The Android Open Source Project, Inc.
-
-Licensed to the Apache Software Foundation (ASF) under one or more contributor
-license agreements.  See the NOTICE file distributed with this work for
-additional information regarding copyright ownership.  The ASF licenses this
-file to you under the Apache License, Version 2.0 (the "License"); you may not
-use this file except in compliance with the License.  You may obtain a copy of
-the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
-License for the specific language governing permissions and limitations under
-the License.
-
+<table>
+<tr>
+  <td>
+    <img style="position: center;" src="https://github.com/alex-gru/Nanodegree-P6/blob/master/static/screenshots/P6 - Go Ubiquitous_phone_1_framed.png" width="250">
+  </td>
+  <td>
+    <tr>
+      <img style="position: center;" src="https://github.com/alex-gru/Nanodegree-P6/blob/master/static/screenshots/P6 - Go Ubiquitous_wear_1_framed_round.png" width="250">
+    </tr>
+    <tr>
+    <img style="position: center;" src="https://github.com/alex-gru/Nanodegree-P6/blob/master/static/screenshots/P6 - Go Ubiquitous_wear_2_framed_round.png" width="250">
+    </tr>
+    <tr>
+      <img style="position: center;" src="https://github.com/alex-gru/Nanodegree-P6/blob/master/static/screenshots/P6 - Go Ubiquitous_wear_1_framed_square.png" width="250">
+    <img style="position: center;" src="https://github.com/alex-gru/Nanodegree-P6/blob/master/static/screenshots/P6 - Go Ubiquitous_wear_2_framed_square.png" width="250">
+    </tr>
+  </td>
+</tr>
+</table>
