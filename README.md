@@ -18,19 +18,13 @@ In this mode it is important to use low-bit designs to prevent potential display
 <table>
 <tr>
   <td>
-    <img style="position: center;" src="https://github.com/alex-gru/Nanodegree-P6/blob/master/static/screenshots/P6 - Go Ubiquitous_phone_1_framed.png" width="250">
+    <img style="position: center;" src="https://github.com/alex-gru/Nanodegree-P6/blob/master/static/screenshots/P6 - Go Ubiquitous_phone_1_framed.png" width="300">
   </td>
   <td>
-    <tr>
       <img style="position: center;" src="https://github.com/alex-gru/Nanodegree-P6/blob/master/static/screenshots/P6 - Go Ubiquitous_wear_1_framed_round.png" width="250">
-    </tr>
-    <tr>
-    <img style="position: center;" src="https://github.com/alex-gru/Nanodegree-P6/blob/master/static/screenshots/P6 - Go Ubiquitous_wear_2_framed_round.png" width="250">
-    </tr>
-    <tr>
+    <img style="position: center;" src="https://github.com/alex-gru/Nanodegree-P6/blob/master/static/screenshots/P6 - Go Ubiquitous_wear_2_framed_round.png" width="250"><br>
       <img style="position: center;" src="https://github.com/alex-gru/Nanodegree-P6/blob/master/static/screenshots/P6 - Go Ubiquitous_wear_1_framed_square.png" width="250">
     <img style="position: center;" src="https://github.com/alex-gru/Nanodegree-P6/blob/master/static/screenshots/P6 - Go Ubiquitous_wear_2_framed_square.png" width="250">
-    </tr>
   </td>
 </tr>
 </table>
