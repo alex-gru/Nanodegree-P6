@@ -8,7 +8,7 @@ We live in a world, where everything gets more and more connected. Since it's be
 
 Android Wear feels, from the developer's perspective, almost the same as developing for a "standard" handheld device. The interesting part is the communication between the handheld and the wearable device. 
 
-In this project, the famous "Sunshine" weather app, which is the result of the supporting courses [Developing Android Apps](https://www.udacity.com/course/developing-android-apps--ud853), [Advanced Android App Development](https://www.udacity.com/course/advanced-android-app-development--ud855), should be extended to integrate Wear functionality. 
+In this project, the famous "Sunshine" weather app, which is the result of the supporting courses [Developing Android Apps](https://www.udacity.com/course/developing-android-apps--ud853) and [Advanced Android App Development](https://www.udacity.com/course/advanced-android-app-development--ud855), should be extended to integrate Wear functionality. 
 
 Based on a mockup provided, a watchface for an Android Watch is designed. The communication between handheld and wearable is realized, by using a WearableListenerService. The GoogleApiClient provides listener on both sides to react to data transfers. For transmitting data, so called "data items" are used, which are delivery-guaranteed data chunks.
 
