@@ -20,6 +20,8 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
@@ -35,9 +37,24 @@ import com.example.android.sunshine.app.gcm.RegistrationIntentService;
 import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.wearable.DataApi;
+import com.google.android.gms.wearable.DataEventBuffer;
+import com.google.android.gms.wearable.Node;
+import com.google.android.gms.wearable.NodeApi;
+import com.google.android.gms.wearable.PutDataMapRequest;
+import com.google.android.gms.wearable.PutDataRequest;
+import com.google.android.gms.wearable.Wearable;
 
-public class MainActivity extends AppCompatActivity implements ForecastFragment.Callback {
+public class MainActivity extends AppCompatActivity implements ForecastFragment.Callback,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, ResultCallback<DataApi.DataItemResult>
+,DataApi.DataListener{
 
+    private static final String TAG = "SUNSHINE_APP";
+    public static String HIGH_TEMP_DATA= "-1°";
+    public static String LOW_TEMP_DATA = "-1°";
+    public static int WEATHER_ID_DATA = 500;
     private final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
@@ -45,12 +62,21 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
 
     private boolean mTwoPane;
     private String mLocation;
+    private GoogleApiClient mGoogleApiClient;
+    private static final String DATA_PATH = "/sunshine-watchface/data";
+    private int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLocation = Utility.getPreferredLocation(this);
         Uri contentUri = getIntent() != null ? getIntent().getData() : null;
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(Wearable.API)
+                .build();
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
@@ -107,6 +133,21 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
                 startService(intent);
             }
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+
+    }
+
+    @Override
+    protected void onStop() {
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
+        super.onStop();
     }
 
     @Override
@@ -195,5 +236,81 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle connectionHint) {
+        Log.d(TAG, "onConnected: " + connectionHint);
+//        Uri.Builder builder = new Uri.Builder();
+//        Uri uri = builder.scheme("wear").path(DATA_PATH).build();
+//        Wearable.DataApi.getDataItem(mGoogleApiClient, uri).setResultCallback(this);
+
+        Wearable.NodeApi.getLocalNode(mGoogleApiClient)
+                .setResultCallback(new ResultCallback<NodeApi.GetLocalNodeResult>() {
+                    @Override
+                    public void onResult(NodeApi.GetLocalNodeResult result) {
+                        Log.d(TAG, "My node id is " + result.getNode().getId());
+                    }
+                });
+
+        Wearable.NodeApi.getConnectedNodes(mGoogleApiClient)
+                .setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
+                    @Override
+                    public void onResult(NodeApi.GetConnectedNodesResult result) {
+                        for(Node node: result.getNodes()){
+                            Log.d(TAG, "Node " + node.getId() + " is connected");
+                        }
+                    }
+                });
+        sendWeatherData();
+    }
+
+    @Override
+    public void onConnectionSuspended(int cause) {
+        Log.d(TAG, "onConnectionSuspended: " + cause);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.d(TAG, "onConnectionFailed: " + connectionResult);
+    }
+
+    public void sendWeatherData() {
+
+        Wearable.NodeApi.getConnectedNodes(mGoogleApiClient)
+                .setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
+           @Override
+           public void onResult(@NonNull NodeApi.GetConnectedNodesResult getConnectedNodesResult) {
+               PutDataMapRequest putDataMapReq = PutDataMapRequest.create(DATA_PATH);
+               putDataMapReq.getDataMap().putString("LOW", LOW_TEMP_DATA);
+               putDataMapReq.getDataMap().putString("HIGH", HIGH_TEMP_DATA);
+               putDataMapReq.getDataMap().putLong("WEATHER_ID_DATA", WEATHER_ID_DATA);
+               putDataMapReq.getDataMap().putLong("ts", System.currentTimeMillis());
+               PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
+
+               Log.d(TAG, "sending: " + putDataMapReq.getDataMap().toString());
+               Wearable.DataApi.putDataItem(mGoogleApiClient,putDataReq)
+                       .setResultCallback(new ResultCallback<DataApi.DataItemResult>() {
+                           @Override
+                           public void onResult(@NonNull DataApi.DataItemResult dataItemResult) {
+                               if (dataItemResult.getStatus().isSuccess()){
+                                   Log.d(TAG, "Success sending data item to wearable!");
+                               } else {
+                                   Log.d(TAG, "Failure sending data item to wearable!");
+                               }
+                           }
+                       });
+           }
+       });
+    }
+
+    @Override
+    public void onResult(@NonNull DataApi.DataItemResult dataItemResult) {
+
+    }
+
+    @Override
+    public void onDataChanged(DataEventBuffer dataEventBuffer) {
+        Log.d(TAG, "Got data from wearable!!");
     }
 }

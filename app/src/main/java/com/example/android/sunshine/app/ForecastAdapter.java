@@ -182,6 +182,12 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
         forecastAdapterViewHolder.mLowTempView.setText(lowString);
         forecastAdapterViewHolder.mLowTempView.setContentDescription(mContext.getString(R.string.a11y_low_temp, lowString));
 
+        if (getItemViewType(position) == VIEW_TYPE_TODAY) {
+            MainActivity.HIGH_TEMP_DATA = highString;
+            MainActivity.WEATHER_ID_DATA = weatherId;
+            MainActivity.LOW_TEMP_DATA = lowString;
+        }
+
         mICM.onBindViewHolder(forecastAdapterViewHolder, position);
     }
 
